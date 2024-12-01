@@ -17,13 +17,13 @@ export default async function Home() {
   return (
     <main className="w-full h-full">
       <div className="md:w-2/4 sm:w-3/4 m-auto p-4 my-5 rounded-lg bg-blue-900 drop-shadow-xl">
-        <h1 className="text-slate-200 text-center text-2xl font-extrabold">
+        <h1 className="text-slate-200 text-center text-4xl font-extrabold">
           Next Blog App
         </h1>
         <div className="flex flex-col">
           <Link
             href={"/blog/add"}
-            className="text-center rounded-md p-2 m-auto my-5 bg-slate-300 font-semibold"
+            className="text-center rounded-md p-2 m-auto my-5 bg-slate-300 font-semibold text-xl"
           >
             Add New Blog
           </Link>
@@ -49,11 +49,18 @@ export default async function Home() {
 
                 <div className="mr-auto my-1">
                   <blockquote className="font-bold text-slate-700">
-                    {new Date(post.date).toDateString()}
+                    {new Date(post.date).toLocaleString("ja-JP", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      weekday: "short",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </blockquote>
                 </div>
 
-                <div className="mr-auto my-1">
+                <div className="mr-auto my-1 whitespace-pre-line">
                   <h2>{post.description}</h2>
                 </div>
               </div>

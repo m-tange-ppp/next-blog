@@ -73,7 +73,7 @@ const EditBlog = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-col justify-center items-stretch bg-blue-900 m-auto my-5 p-4 rounded-lg drop-shadow-xl">
+      <div className="md:w-2/4 sm:w-3/4 flex flex-col justify-center items-stretch bg-blue-900 m-auto my-5 p-4 rounded-lg drop-shadow-xl">
         <p className="text-slate-200 text-2xl font-bold text-center">
           Edit Blog
         </p>
@@ -88,6 +88,7 @@ const EditBlog = () => {
             ref={descriptionRef}
             placeholder="記事内容を入力"
             className="rounded-md px-4 py-2 w-full"
+            rows={10}
           ></textarea>
           <div className="flex justify-center gap-5">
             <button
