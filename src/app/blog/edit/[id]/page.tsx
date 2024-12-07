@@ -58,7 +58,20 @@ const EditBlog = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await editBlog(titleRef.current?.value, descriptionRef.current?.value, id);
+    const postTitle = titleRef.current?.value.trim();
+    const postDescription = descriptionRef.current?.value.trim();
+
+    if (!postTitle) {
+      alert("タイトルを入力してください。");
+      return;
+    }
+
+    if (!postDescription) {
+      alert("内容を入力してください。");
+      return;
+    }
+
+    await editBlog(postTitle, postDescription, id);
 
     router.push("/");
     router.refresh();

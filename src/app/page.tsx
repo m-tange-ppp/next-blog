@@ -23,7 +23,7 @@ export default async function Home() {
         <div className="flex flex-col">
           <Link
             href={"/blog/add"}
-            className="text-center rounded-md p-2 m-auto my-5 bg-slate-300 font-semibold text-xl"
+            className="text-center rounded-md p-2 m-auto my-5 bg-slate-900 text-slate-200 font-semibold text-xl"
           >
             Add New Blog
           </Link>
@@ -41,7 +41,7 @@ export default async function Home() {
 
                   <Link
                     href={`/blog/edit/${post.id}`}
-                    className="px-4 py-1 text-center text-xl bg-slate-900 rounded-md font-semibold text-slate-200"
+                    className="px-4 py-1 text-center bg-slate-900 rounded-md font-semibold text-slate-200"
                   >
                     Edit
                   </Link>

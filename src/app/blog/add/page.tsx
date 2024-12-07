@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { title } from "process";
 import React, { useRef } from "react";
 
 const postBlog = async (
@@ -26,7 +27,20 @@ const PostBlog = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await postBlog(titleRef.current?.value, descriptionRef.current?.value);
+    const postTitle = titleRef.current?.value.trim();
+    const postDescription = descriptionRef.current?.value.trim();
+
+    if (!postTitle) {
+      alert("タイトルを入力してください。");
+      return;
+    }
+
+    if (!postDescription) {
+      alert("内容を入力してください。");
+      return;
+    }
+
+    await postBlog(postTitle, postDescription);
 
     router.push("/");
     router.refresh();
