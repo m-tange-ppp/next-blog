@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import { PostType } from "@/app/types";
 import { useParams, useRouter } from "next/navigation";
 import React, { cache, useEffect, useRef, useState } from "react";
@@ -88,7 +89,7 @@ const EditBlog = () => {
   };
 
   if (isLoading) {
-    return <div></div>;
+    return <Loading />;
   }
 
   return (
