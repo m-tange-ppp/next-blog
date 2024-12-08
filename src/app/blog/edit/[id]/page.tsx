@@ -2,7 +2,7 @@
 
 import { PostType } from "@/app/types";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { cache, useEffect, useRef, useState } from "react";
 
 const editBlog = async (
   title: string | undefined,
@@ -43,14 +43,17 @@ const EditBlog = () => {
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
   const params = useParams<{ id: string }>();
   const id = params.id;
+  const [isLoading, setIsLoading] = useState(true);
+  const [post, setPost] = useState<{
+    title: string;
+    description: string;
+  } | null>(null);
 
   useEffect(() => {
     getBlogById(id)
       .then((data: PostType) => {
-        if (titleRef.current && descriptionRef.current) {
-          titleRef.current.value = data.title;
-          descriptionRef.current.value = data.description;
-        }
+        setPost({ title: data.title, description: data.description });
+        setIsLoading(false);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -84,6 +87,10 @@ const EditBlog = () => {
     router.refresh();
   };
 
+  if (isLoading) {
+    return <div></div>;
+  }
+
   return (
     <div className="w-full h-full">
       <div className="md:w-2/4 sm:w-3/4 flex flex-col justify-center items-stretch bg-blue-900 m-auto my-5 p-4 rounded-lg drop-shadow-xl">
@@ -95,25 +102,27 @@ const EditBlog = () => {
             ref={titleRef}
             type="text"
             placeholder="タイトルを入力"
+            defaultValue={post?.title}
             className="rounded-md px-4 py-2 w-full"
           />
           <textarea
             ref={descriptionRef}
             placeholder="記事内容を入力"
+            defaultValue={post?.description}
             className="rounded-md px-4 py-2 w-full"
             rows={10}
           ></textarea>
           <div className="flex justify-center gap-5">
             <button
               type="submit"
-              className="px-4 py-1  text-center text-xl bg-slate-900 rounded-md font-semibold text-slate-200"
+              className="px-4 py-1  text-center text-xl bg-slate-800 rounded-md font-semibold text-slate-200 hover:bg-slate-900 transition-all duration-300"
             >
               Post
             </button>
             <button
               type="button"
               onClick={handleDelete}
-              className="px-4 py-1  text-center text-xl bg-red-700 rounded-md font-semibold text-slate-200"
+              className="px-4 py-1  text-center text-xl bg-red-600 rounded-md font-semibold text-slate-200 hover:bg-red-700 transition-all duration-300"
             >
               Delete
             </button>

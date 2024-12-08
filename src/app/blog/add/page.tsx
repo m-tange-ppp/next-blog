@@ -65,7 +65,7 @@ const PostBlog = () => {
             className="rounded-md px-4 py-2 w-full"
             rows={10}
           ></textarea>
-          <button className="px-4 py-1 m-auto text-center text-xl bg-slate-900 rounded-md font-semibold text-slate-200">
+          <button className="px-4 py-1 m-auto text-center text-xl bg-slate-800 rounded-md font-semibold text-slate-200 hover:bg-slate-900 transition-all duration-300">
             Post
           </button>
         </form>

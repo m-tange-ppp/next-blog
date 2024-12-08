@@ -2,7 +2,8 @@ export type PostType = {
   id: number;
   title: string;
   description: string;
-  date: Date;
+  createdAt: Date;
+  updateAt: Date;
 };
 
 export type AllBlogsType = {
