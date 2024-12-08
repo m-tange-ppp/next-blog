@@ -1,8 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { title } from "process";
-import React, { useRef } from "react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import { createClient } from "../../../../utils/supabase/client";
+import Loading from "@/app/loading";
 
 const postBlog = async (
   title: string | undefined,
@@ -19,10 +20,23 @@ const postBlog = async (
   return res.json();
 };
 
+const authUser = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/login");
+  }
+};
+
 const PostBlog = () => {
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    authUser().then(() => setIsLoading(false));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +59,10 @@ const PostBlog = () => {
     router.push("/");
     router.refresh();
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="w-full h-full">

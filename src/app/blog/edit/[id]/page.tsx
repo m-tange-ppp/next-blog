@@ -2,8 +2,9 @@
 
 import Loading from "@/app/loading";
 import { PostType } from "@/app/types";
-import { useParams, useRouter } from "next/navigation";
-import React, { cache, useEffect, useRef, useState } from "react";
+import { redirect, useParams, useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import { createClient } from "../../../../../utils/supabase/client";
 
 const editBlog = async (
   title: string | undefined,
@@ -38,6 +39,14 @@ const deleteBlog = async (id: string) => {
   return res.json();
 };
 
+const authUser = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/login");
+  }
+};
+
 const EditBlog = () => {
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement | null>(null);
@@ -51,12 +60,14 @@ const EditBlog = () => {
   } | null>(null);
 
   useEffect(() => {
-    getBlogById(id)
-      .then((data: PostType) => {
-        setPost({ title: data.title, description: data.description });
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
+    authUser().then(() =>
+      getBlogById(id)
+        .then((data: PostType) => {
+          setPost({ title: data.title, description: data.description });
+          setIsLoading(false);
+        })
+        .catch((err) => console.error(err))
+    );
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
