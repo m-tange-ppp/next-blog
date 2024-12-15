@@ -78,9 +78,9 @@ export default async function Home() {
           </div>
           <Link
             href={"/login"}
-            className="text-center rounded-md p-2 m-auto my-5 bg-slate-800 text-slate-200 font-semibold text-xl hover:bg-slate-900 transition-all duration-300"
+            className="text-center rounded-md p-2 m-auto mt-5 bg-slate-800 text-slate-200 font-semibold hover:bg-slate-900 transition-all duration-300"
           >
-            Login or Signup
+            Admin
           </Link>
         </div>
       </div>
