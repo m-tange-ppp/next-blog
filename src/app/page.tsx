@@ -9,7 +9,7 @@ async function fetchAllBlogs() {
   });
 
   // デバッグ用
-  const text = await res.text;
+  const text = await res.text();
   console.log(text);
 
   const data: AllBlogsType = await res.json();
