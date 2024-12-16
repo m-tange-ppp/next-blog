@@ -8,10 +8,6 @@ async function fetchAllBlogs() {
     cache: "no-store",
   });
 
-  // デバッグ用
-  const text = await res.text();
-  console.log(text);
-
   const data: AllBlogsType = await res.json();
 
   return data.posts;
