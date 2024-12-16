@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className="w-full h-full">
       <div className="md:w-2/4 sm:w-3/4 m-auto p-4 my-5 rounded-lg bg-blue-900 drop-shadow-xl">
-        <h1 className="text-slate-200 text-center text-2xl font-extrabold">
+        <h1 className="text-slate-200 text-center text-4xl font-extrabold">
           Next Blog App
         </h1>
         <div className="flex flex-col">
