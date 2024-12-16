@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // ブログ詳細記事取得API
-export const GET = async (req: Request, res: NextResponse) => {
+export const GET = async (req: Request) => {
   try {
     const id: number = parseInt(req.url.split("/blog/")[1]);
     await main();
@@ -22,7 +22,7 @@ export const GET = async (req: Request, res: NextResponse) => {
 };
 
 // ブログ記事編集API
-export const PUT = async (req: Request, res: NextResponse) => {
+export const PUT = async (req: Request) => {
   try {
     const id: number = parseInt(req.url.split("/blog/")[1]);
     const { title, description } = await req.json();
@@ -44,7 +44,7 @@ export const PUT = async (req: Request, res: NextResponse) => {
 };
 
 // ブログ記事削除API
-export const DELETE = async (req: Request, res: NextResponse) => {
+export const DELETE = async (req: Request) => {
   try {
     const id: number = parseInt(req.url.split("/blog/")[1]);
     await main();
