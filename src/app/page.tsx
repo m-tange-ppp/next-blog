@@ -4,10 +4,13 @@ import { PostType, AllBlogsType } from "./types";
 const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
 async function fetchAllBlogs() {
-  console.log(apiUrl);
   const res = await fetch(`${apiUrl}/api/blog`, {
     cache: "no-store",
   });
+
+  // デバッグ用
+  const text = await res.text;
+  console.log(text);
 
   const data: AllBlogsType = await res.json();
 
