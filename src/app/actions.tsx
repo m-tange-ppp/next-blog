@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../utils/supabase/server";
 
-const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
