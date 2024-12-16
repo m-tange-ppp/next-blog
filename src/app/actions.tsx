@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../utils/supabase/server";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export async function login(formData: FormData) {
   const supabase = await createClient();
 
@@ -59,7 +61,7 @@ export async function postBlog(formData: FormData) {
   }
 
   // APIに送信
-  const res = await fetch("http://localhost:3000/api/blog", {
+  const res = await fetch(`${apiUrl}/api/blog`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -78,7 +80,7 @@ export async function postBlog(formData: FormData) {
 }
 
 async function editBlog(title: string, description: string, id: string) {
-  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+  const res = await fetch(`${apiUrl}/api/blog/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -93,7 +95,7 @@ async function editBlog(title: string, description: string, id: string) {
 }
 
 async function deleteBlog(id: string) {
-  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+  const res = await fetch(`${apiUrl}/api/blog/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

@@ -3,8 +3,10 @@ import { redirect, useParams, useRouter } from "next/navigation";
 import { createClient } from "../../../../../utils/supabase/server";
 import { editOrDelete } from "@/app/actions";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const getBlogById = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/blog/${id}`);
+  const res = await fetch(`${apiUrl}/api/blog/${id}`);
   const data = await res.json();
   return data.post;
 };

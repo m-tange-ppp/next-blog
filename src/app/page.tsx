@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { PostType, AllBlogsType } from "./types";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 async function fetchAllBlogs() {
-  const res = await fetch("http://localhost:3000/api/blog", {
+  const res = await fetch(`${apiUrl}/api/blog`, {
     cache: "no-store",
   });
 
