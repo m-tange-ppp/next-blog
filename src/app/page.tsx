@@ -9,6 +9,7 @@ async function fetchAllBlogs() {
   });
 
   const data: AllBlogsType = await res.json();
+  console.log(data.posts);
 
   return data.posts;
 }
