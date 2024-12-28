@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { PostType, AllBlogsType } from "./types";
 
-const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : "http://localhost:3000";
 
 async function fetchAllBlogs() {
   const res = await fetch(`${apiUrl}/api/blog`, {
@@ -9,7 +11,6 @@ async function fetchAllBlogs() {
   });
 
   const data: AllBlogsType = await res.json();
-  console.log(data.posts);
 
   return data.posts;
 }

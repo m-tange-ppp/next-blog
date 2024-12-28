@@ -3,7 +3,9 @@ import { redirect, useParams, useRouter } from "next/navigation";
 import { createClient } from "../../../../../utils/supabase/server";
 import { editOrDelete } from "@/app/actions";
 
-const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : "http://localhost:3000";
 
 const getBlogById = async (id: string) => {
   const res = await fetch(`${apiUrl}/api/blog/${id}`);

@@ -4,7 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../utils/supabase/server";
 
-const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : "http://localhost:3000";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -109,7 +111,6 @@ async function deleteBlog(id: string) {
 }
 
 export async function editOrDelete(id: string, formData: FormData) {
-  console.log(formData);
   const action = formData.get("action");
   const title = formData.get("title");
   const description = formData.get("description");
