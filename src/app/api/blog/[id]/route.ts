@@ -35,12 +35,19 @@ export const PUT = async (req: Request) => {
     const { title, description } = await req.json();
 
     await main();
-    const post = await prisma.post.update({
-      data: { title, description },
+    const post = await prisma.post.findFirst({ where: { id } });
+    const updatedPost = {
+      ...post,
+      title,
+      description,
+      updatedAt: new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }),
+    };
+    const updated = await prisma.post.update({
+      data: updatedPost,
       where: { id },
     });
     return NextResponse.json(
-      { message: "Success", post: post },
+      { message: "Success", post: updated },
       { status: 200 }
     );
   } catch (error) {

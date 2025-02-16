@@ -15,6 +15,12 @@ async function fetchAllBlogs() {
   return data.posts;
 }
 
+const formatDate = (dateString: Date) => {
+  return new Date(dateString).toLocaleString("ja-JP", {
+    timeZone: "Asia/Tokyo",
+  });
+};
+
 export default async function Home() {
   const posts = await fetchAllBlogs();
 
@@ -47,14 +53,7 @@ export default async function Home() {
                 </div>
                 <div className="mr-auto my-1">
                   <blockquote className="font-bold text-slate-700">
-                    {new Date(post.createdAt).toLocaleString("ja-JP", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      weekday: "short",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {formatDate(post.createdAt)}
                   </blockquote>
                 </div>
 
@@ -62,14 +61,7 @@ export default async function Home() {
                   {post.createdAt !== post.updateAt && (
                     <blockquote className="font-bold text-slate-700">
                       更新日時：
-                      {new Date(post.updateAt).toLocaleString("ja-JP", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        weekday: "short",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                      {formatDate(post.updateAt)}
                     </blockquote>
                   )}
                 </div>

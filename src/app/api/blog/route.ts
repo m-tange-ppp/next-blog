@@ -15,7 +15,7 @@ async function main() {
 export const GET = async () => {
   try {
     await main();
-    const posts = await prisma.post.findMany({ orderBy: { id: "asc" } });
+    const posts = await prisma.post.findMany({ orderBy: { id: "desc" } });
     return NextResponse.json({ message: "Success", posts }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
@@ -29,7 +29,15 @@ export const POST = async (req: Request) => {
   try {
     const { title, description } = await req.json();
     await main();
-    const post = await prisma.post.create({ data: { title, description } });
+    const post = await prisma.post.create({
+      data: {
+        title,
+        description,
+        createdAt: new Date().toLocaleString("ja-JP", {
+          timeZone: "Asia/Tokyo",
+        }),
+      },
+    });
     return NextResponse.json({ message: "Success", post }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
