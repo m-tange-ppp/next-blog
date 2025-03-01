@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ブログアプリケーション
 
-## Getting Started
+Next.js で作成したブログアプリケーションです。
 
-First, run the development server:
+## 機能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- ブログ記事の一覧表示
+- ブログ記事の投稿
+- ブログ記事の編集
+- ブログ記事の削除
+- 作成日時と更新日時の表示（日本時間）
+
+## 技術スタック
+
+- Framework: Next.js 14 (App Router)
+- データベース: PostgreSQL (Prisma ORM)
+- スタイリング: Tailwind CSS
+- デプロイ: Vercel
+
+## プロジェクト構成
+
+```
+src/
+  ├── app/
+  │   ├── api/
+  │   │   └── blog/
+  │   │       ├── route.ts          # 記事一覧・投稿API
+  │   │       └── [id]/
+  │   │           └── route.ts      # 記事詳細・編集・削除API
+  │   ├── blog/
+  │   │   ├── add/
+  │   │   │   └── page.tsx         # 記事投稿ページ
+  │   │   └── edit/
+  │   │       └── [id]/
+  │   │           └── page.tsx      # 記事編集ページ
+  │   └── page.tsx                  # トップページ（記事一覧）
+  └── types.ts                      # 型定義ファイル
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 開発環境のセットアップ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# パッケージのインストール
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Prismaの初期設定
+npx prisma init
+npx prisma generate
 
-## Learn More
+# 開発サーバーの起動
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+[http://localhost:3000](http://localhost:3000) をブラウザで開いて確認できます。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API仕様
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### GET /api/blog
 
-## Deploy on Vercel
+- 全ブログ記事を取得
+- 作成日時の降順でソート
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### POST /api/blog
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 新規ブログ記事を作成
+- 必要なデータ: title, description
+
+### GET /api/blog/[id]
+
+- 指定したIDのブログ記事を取得
+
+### PUT /api/blog/[id]
+
+- 指定したIDのブログ記事を更新
+- 必要なデータ: title, description
+
+### DELETE /api/blog/[id]
+
+- 指定したIDのブログ記事を削除
+
+---
